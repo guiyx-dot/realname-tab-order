@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>实名认证 · 页签顺序 · 需求说明</title>
+  <style>
+    :root {
+      --bg: #f3f5f7; --card: #fff; --ink: #1f1f1f; --sub: #595959; --line: #e6e8eb;
+      --new: #cf1322;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 14px; line-height: 1.6; }
+    .wrap { max-width: 880px; margin: 0 auto; padding: 28px 20px 64px; }
+    h1 { margin: 0; font-size: 26px; }
+    h2 { margin: 0 0 12px; font-size: 16px; }
+    .lead { margin: 8px 0 0; color: var(--sub); }
+    .card { background: var(--card); border-radius: 12px; padding: 18px; margin-top: 16px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { background: #fafafa; color: var(--sub); font-weight: 550; }
+    .mark { display: inline-block; min-width: 36px; text-align: center; border-radius: 4px; font-size: 12px; padding: 0 6px; line-height: 20px; }
+    .mark.add { background: #fff1f0; color: var(--new); }
+    .mark.keep { background: #f5f5f5; color: #595959; }
+    .shots { display: flex; gap: 28px; align-items: flex-start; margin-top: 16px; flex-wrap: wrap; }
+    .phone { width: 280px; background: #fff; border: 1px solid #eee; border-radius: 28px; padding: 12px 14px 16px; box-shadow: 0 8px 24px rgba(0,0,0,.05); display: flex; flex-direction: column; min-height: 560px; }
+    .bar, .nav { display: flex; align-items: center; justify-content: space-between; color: #262626; }
+    .bar { font-size: 12px; font-weight: 650; padding: 2px 6px 8px; }
+    .nav { font-size: 16px; font-weight: 650; padding: 0 2px 4px; }
+    .nav span { color: #262626; font-weight: 400; font-size: 14px; }
+    .seg { display: flex; background: #f0f0f0; border-radius: 18px; padding: 3px; margin: 14px 10px 18px; }
+    .seg span { flex: 1; text-align: center; line-height: 30px; border-radius: 15px; color: #9a9a9a; font-size: 13px; }
+    .seg .on { background: #fff; color: #262626; }
+    .row { display: flex; justify-content: space-between; align-items: center; background: #f5f5f5; border-radius: 10px; margin: 0 2px 10px; padding: 14px 14px; font-size: 14px; }
+    .row em { color: #ff4d4f; font-style: normal; margin-left: 2px; }
+    .row i { color: #c8c8c8; font-style: normal; }
+    .grow { flex: 1; }
+    .agree { text-align: center; color: #b5b5b5; font-size: 12px; margin: 8px 0 10px; }
+    .agree b { color: #c6a15a; font-weight: 500; }
+    .go { height: 44px; border-radius: 22px; background: linear-gradient(#ffe7a6, #f0c14b); text-align: center; line-height: 44px; font-weight: 650; }
+    .uptitle { text-align: center; font-size: 16px; font-weight: 650; margin-top: 4px; }
+    .upsub { text-align: center; color: #b5b5b5; font-size: 12px; margin: 4px 0 14px; }
+    .idcard { position: relative; height: 108px; margin: 0 8px 14px; border-radius: 8px; background: #eef6fb; }
+    .idcard::before, .idcard::after { content: ""; position: absolute; width: 14px; height: 14px; border: 2px solid #c4a574; }
+    .idcard::before { left: -2px; top: -2px; border-right: 0; border-bottom: 0; }
+    .idcard i, .idcard b { position: absolute; width: 14px; height: 14px; border: 2px solid #c4a574; }
+    .idcard i { right: -2px; top: -2px; border-left: 0; border-bottom: 0; }
+    .idcard b { left: -2px; bottom: -2px; border-right: 0; border-top: 0; }
+    .idcard u { position: absolute; right: -2px; bottom: -2px; width: 14px; height: 14px; border: 2px solid #c4a574; border-left: 0; border-top: 0; text-decoration: none; }
+    .cam { position: absolute; left: 50%; top: 50%; width: 36px; height: 36px; margin: -18px 0 0 -18px; border-radius: 50%; background: #8a5a32; }
+    .face { position: absolute; right: 16px; top: 22px; width: 36px; height: 44px; border-radius: 18px 18px 8px 8px; background: #7aa2d6; }
+    .seal { position: absolute; left: 16px; top: 16px; width: 28px; height: 28px; border-radius: 50%; background: #e7b4b4; }
+    figcaption { margin-top: 8px; color: var(--sub); font-size: 12px; max-width: 280px; }
+    .foot { margin: 8px 0 0; color: var(--sub); font-size: 12px; }
+    @media (max-width: 640px) { .shots { flex-direction: column; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>实名认证 · 页签顺序</h1>
+    <p class="lead">实名认证页的两个页签对调。进入页面时默认打开手动填写。</p>
+
+    <section class="card">
+      <h2>这次改什么</h2>
+      <table>
+        <thead><tr><th></th><th>现在</th><th>改为</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>页签顺序</td>
+            <td>上传身份证在前，手动填写在后</td>
+            <td><span class="mark add">对调</span> 手动填写在前，上传身份证在后</td>
+          </tr>
+          <tr>
+            <td>默认进入</td>
+            <td>上传身份证</td>
+            <td><span class="mark add">手动填写</span></td>
+          </tr>
+          <tr>
+            <td>两个页签里的字段、协议、确认提交</td>
+            <td>保持现状</td>
+            <td><span class="mark keep">不变</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="shots">
+        <div>
+          <div class="phone" aria-label="默认页：手动填写">
+            <div class="bar"><span>10:37</span><span>▮▮▮</span></div>
+            <div class="nav"><span>‹</span><b>实名认证</b><span>☆ ···</span></div>
+            <div class="seg"><span class="on">手动填写</span><span>上传身份证</span></div>
+            <div class="row"><span>姓名<em>*</em></span><i>请输入</i></div>
+            <div class="row"><span>身份证号<em>*</em></span><i>请输入</i></div>
+            <div class="row"><span>失效日期</span><i>请选择</i></div>
+            <div class="grow"></div>
+            <div class="agree">○ 已阅读并确认<b>《身份认证协议》</b></div>
+            <div class="go">确认提交</div>
+          </div>
+          <figcaption>改后排第一，也是默认页。姓名、身份证号必填，失效日期选填。</figcaption>
+        </div>
+        <div>
+          <div class="phone" aria-label="第二页：上传身份证">
+            <div class="bar"><span>10:37</span><span>▮▮▮</span></div>
+            <div class="nav"><span>‹</span><b>实名认证</b><span>☆ ···</span></div>
+            <div class="seg"><span>手动填写</span><span class="on">上传身份证</span></div>
+            <div class="uptitle">请上传二代身份证</div>
+            <div class="upsub">确保证件清晰完整</div>
+            <div class="idcard"><i></i><b></b><u></u><span class="cam"></span><span class="face"></span></div>
+            <div class="idcard"><i></i><b></b><u></u><span class="cam"></span><span class="seal"></span></div>
+            <div class="grow"></div>
+            <div class="agree">○ 已阅读并确认<b>《身份认证协议》</b></div>
+            <div class="go">确认提交</div>
+          </div>
+          <figcaption>改后排第二。仍是上传身份证人像面和国徽面。</figcaption>
+        </div>
+      </div>
+      <p class="foot">两个页签都能切过去。协议勾选和确认提交还在页面底部，不改。</p>
+    </section>
+  </div>
+</body>
+</html>
